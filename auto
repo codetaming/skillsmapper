@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+set -o nounset
+set -o pipefail
+
+SCRIPT_DIR=$(cd "$(dirname "$0")" ; pwd -P)
+
+source "${SCRIPT_DIR}/auto.helpers"
+
+goal_build() {
+  go build ./cmd/skillsmapperd.go
+}
+
+goal_containerize() {
+  ko publish github.com/codetaming/skillsmapper/cmd/skillsmapperd
+}
+
+goal_test-unit() {
+  go test ./...
+}
+
+goal_run() {
+  go run ./cmd/skillsmapperd.go
+}
+
+goal_test-e2e() {
+  setup-newman
+  run-newman
+}
+
+goal_help() {
+  echo "usage: $0 <goal>
+    goal:
+    build                    -- Build the deployable artifacts
+    containerize             -- Build the docker container for the app
+    test-unit                -- Run unit tests
+    test-e2e                 -- Run newman tests
+    "
+  exit 1
+}
+
+main() {
+  TARGET=${1:-}
+  if [ -n "${TARGET}" ] && type -t "goal_$TARGET" &>/dev/null; then
+    "goal_$TARGET" "${@:2}"
+  else
+    goal_help
+  fi
+}
+
+main "$@"

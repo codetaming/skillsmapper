@@ -1,7 +1,7 @@
 package api_test
 
 import (
-	"github.com/codetaming/skillsmapper/cmd/api"
+	"github.com/codetaming/skillsmapper/internal/api"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"net/http"

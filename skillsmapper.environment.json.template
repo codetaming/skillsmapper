@@ -1,0 +1,11 @@
+{
+	"id": "543b44ed-4f35-49f6-9870-81ae82dab010",
+	"name": "local",
+	"values": [
+		{
+			"key": "host",
+			"value": "${HOST}",
+			"enabled": true
+		}
+	]
+}

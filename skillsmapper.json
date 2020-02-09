@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "e0019050-1618-4802-8e38-c41b9de7bc3b",
+		"name": "SkillsMapper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Submit skill",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/javascript",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"dan@example.com\",\n  \"tag\": \"java\",\n  \"level\": \"learning\"\n}"
+				},
+				"url": {
+					"raw": "http://{{host}}:8080/skill",
+					"protocol": "http",
+					"host": [
+						"{{host}}:8080"
+					],
+					"path": [
+						"skill"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
