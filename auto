@@ -9,11 +9,11 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" ; pwd -P)
 source "${SCRIPT_DIR}/auto.helpers"
 
 goal_build() {
-  go build ./cmd/skillsmapperd.go
+  go build ./cmd/skillsmapperd
 }
 
 goal_containerize() {
-  ko publish github.com/codetaming/skillsmapper/cmd/skillsmapperd
+  ko publish ./cmd/skillsmapperd
 }
 
 goal_test-unit() {
@@ -29,6 +29,10 @@ goal_test-e2e() {
   run-newman
 }
 
+goal_deploy-cloudrun() {
+  gcloud run deploy --image gcr.io/${PROJECT_ID}/skillsmapper --platform managed
+}
+
 goal_help() {
   echo "usage: $0 <goal>
     goal:
@@ -36,6 +40,7 @@ goal_help() {
     containerize             -- Build the docker container for the app
     test-unit                -- Run unit tests
     test-e2e                 -- Run newman tests
+    deploy-cloudrun          -- Deploy to Cloud Run
     "
   exit 1
 }
