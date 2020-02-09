@@ -1,35 +1,14 @@
 language: go
-
 go:
-  - 1.13.x
-  - tip
-
-before_install:
-    - curl -L -s https://github.com/golang/dep/releases/download/v0.4.1/dep-linux-amd64 -o $GOPATH/bin/dep
-    - chmod +x $GOPATH/bin/dep
-    - chmod +x ./scripts/test.sh
-
-install:
-  - dep ensure
-  - go get github.com/golang/lint/golint
-
-matrix:
-  allow_failures:
-    - go: tip
-  fast_finish: true
-
+  - master
 before_script:
-  - PKGS=$(go list ./...)
-  - LINT_PKGS=$(go list ./... | grep -Ev 'aws-lambda-go/lambda')
-
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
-  #- diff -u <(echo -n) <(gofmt -d $($LINT_PKGS))                  # Fail if a .go file hasn't been formatted with gofmt
-  - ./scripts/test.sh                                              # Run all tests with coverage
-  - go vet -v ./...                                                # static analyisis
-  - golint $LINT_PKGS                                              # lint - ignore failures for now
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
-notifications:
-  slack: codetaming:DDmjZQZbSzeRWBjVTk3cKmI6
+  - go test -coverprofile c.out ./...
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+env:
+  global:
+    - CC_TEST_REPORTER_ID=51f30563d594ae5a61a3fefc7e3e5c796799d4c1a1890da58c34c0791ddf7ad3
