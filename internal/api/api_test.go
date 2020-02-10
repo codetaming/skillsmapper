@@ -2,6 +2,7 @@ package api_test
 
 import (
 	"github.com/codetaming/skillsmapper/internal/api"
+	"github.com/codetaming/skillsmapper/internal/persistence/local"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"net/http"
@@ -52,4 +53,14 @@ func TestHandlers_SubmitSkill(t *testing.T) {
 			assert.Regexp(t, test.expectedBody, test.out.Body)
 		})
 	}
+}
+
+func init() {
+	logger = log.New(os.Stdout, "skillsmapper-api-test ", log.LstdFlags|log.Lshortfile)
+	dataStore, err := local.NewInMemoryDataStore(logger)
+	if err != nil {
+		logger.Fatalf("failed to create data store: %v", err)
+	}
+
+	a = api.NewAPI(logger, dataStore)
 }
