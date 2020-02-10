@@ -2,6 +2,7 @@
 brew install gettext
 brew link --force gettext
 brew install skaffold
+brew upgrade skaffold
 GO111MODULE=on go get github.com/google/ko/cmd/ko
 
 #ENV
