@@ -10,3 +10,8 @@ export KO_DOCKER_REPO=gcr.io/codetaming-skillsmapper/ko
 export PROJECT_ID=cloudtaming-skillsmapper
 gcloud components update
 gcloud auth configure-docker
+
+# Install kind and create a cluster
+brew install kind
+kind create cluster
+export KUBECONFIG="$(kind get kubeconfig --name="kind")"

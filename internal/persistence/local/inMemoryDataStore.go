@@ -11,6 +11,10 @@ type InMemoryDataStore struct {
 	skills map[string]model.Skill
 }
 
+func (ds InMemoryDataStore) GetAllSkills() ([]model.Skill, error) {
+	panic("implement me")
+}
+
 func (ds InMemoryDataStore) GetSkill(skillID string) (model.Skill, error) {
 	return ds.skills[skillID], nil
 }

@@ -12,5 +12,6 @@ type SkillPersister interface {
 }
 
 type SkillGetter interface {
-	GetSkill(id string) (model.Skill, error)
+	GetAllSkills() ([]model.Skill, error)
+	GetSkill(skillID string) (model.Skill, error)
 }
