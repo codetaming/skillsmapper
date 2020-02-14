@@ -15,3 +15,8 @@ gcloud auth configure-docker
 brew install kind
 kind create cluster
 export KUBECONFIG="$(kind get kubeconfig --name="kind")"
+
+# Install Knative on Docker Desktop
+kubectx docker-desktop
+curl -L https://github.com/knative/serving/releases/download/v0.12.0/serving.yaml \
+  | kubectl apply --filename -

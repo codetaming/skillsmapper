@@ -1,7 +1,6 @@
 package api_test
 
 import (
-	"encoding/json"
 	"github.com/codetaming/skillsmapper/internal/api"
 	"github.com/codetaming/skillsmapper/internal/model"
 	"github.com/codetaming/skillsmapper/internal/persistence/local"
@@ -36,26 +35,6 @@ func generateRequest(method string, target string, bodyFile string) *http.Reques
 	request := httptest.NewRequest(method, target, body)
 	request.Header.Set("Content-Type", "application/json")
 	return request
-}
-
-func TestHandlers_GetSkills(t *testing.T) {
-	tests := []testDef{
-		{
-			name:           "Get Skills",
-			in:             generateRequest("GET", "/skill", "../../examples/empty.json"),
-			out:            httptest.NewRecorder(),
-			expectedStatus: http.StatusOK,
-			expectedBody:   "",
-		},
-	}
-	for _, test := range tests {
-		test := test
-		t.Run(test.name, func(t *testing.T) {
-			a.GetSkills(test.out, test.in)
-			assert.Equal(t, test.expectedStatus, test.out.Code)
-			assert.Regexp(t, test.expectedBody, test.out.Body)
-		})
-	}
 }
 
 func TestHandlers_SubmitSkill(t *testing.T) {
@@ -96,7 +75,7 @@ func TestHandlers_GetSkill(t *testing.T) {
 			a.GetSkill(test.out, test.in)
 			assert.Equal(t, test.expectedStatus, test.out.Code)
 			assert.Regexp(t, test.expectedBody, test.out.Body)
-			log.Printf(test.out.Body)
+			//log.Printf((string)test.out.Body)
 		})
 	}
 }

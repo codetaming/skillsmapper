@@ -15,6 +15,7 @@ type API struct {
 
 func (api *API) SetupRoutes(r *mux.Router) {
 	r.HandleFunc("/skill", api.Logger(api.SubmitSkill)).Methods("POST")
+	r.HandleFunc("/skill/{skillID}", api.Logger(api.GetSkill)).Methods("GET")
 }
 
 func (api *API) Logger(next http.HandlerFunc) http.HandlerFunc {

@@ -2,10 +2,9 @@ package api
 
 import (
 	"net/http"
-	"net/http/httptest"
 )
 
-func (api *API) GetSkills(w *httptest.ResponseRecorder, r *http.Request) {
+func (api *API) GetSkills(w http.ResponseWriter, r *http.Request) {
 	/*
 		model.Skill, err = api.dataStore.GetAllSkills()
 		if err != nil {
