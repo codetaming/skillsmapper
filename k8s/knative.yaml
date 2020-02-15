@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1beta1
+kind: Service
+metadata:
+  name: skillsmapper
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/codetaming-skillsmapper/skillsmapperd

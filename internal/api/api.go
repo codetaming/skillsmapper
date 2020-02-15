@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/codetaming/skillsmapper/internal/persistence"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -8,11 +9,13 @@ import (
 )
 
 type API struct {
-	logger *log.Logger
+	logger    *log.Logger
+	dataStore persistence.DataStore
 }
 
 func (api *API) SetupRoutes(r *mux.Router) {
 	r.HandleFunc("/skill", api.Logger(api.SubmitSkill)).Methods("POST")
+	r.HandleFunc("/skill/{skillID}", api.Logger(api.GetSkill)).Methods("GET")
 }
 
 func (api *API) Logger(next http.HandlerFunc) http.HandlerFunc {
@@ -23,8 +26,9 @@ func (api *API) Logger(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func NewAPI(logger *log.Logger) *API {
+func NewAPI(logger *log.Logger, dataStore persistence.DataStore) *API {
 	return &API{
-		logger: logger,
+		logger:    logger,
+		dataStore: dataStore,
 	}
 }

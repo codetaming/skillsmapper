@@ -1,9 +1,8 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: kodata
+  name: skillsmapper
 spec:
   containers:
-    - name: test
-      image: github.com/codetaming/skillsmapper/cmd/skillsmapperd
-  restartPolicy: Never
+    - name: skillsmapper
+      image: gcr.io/codetaming-skillsmapper/skillsmapperd

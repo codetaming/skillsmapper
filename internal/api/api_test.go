@@ -2,16 +2,21 @@ package api_test
 
 import (
 	"github.com/codetaming/skillsmapper/internal/api"
+	"github.com/codetaming/skillsmapper/internal/model"
+	"github.com/codetaming/skillsmapper/internal/persistence/local"
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"testing"
+	"time"
 )
 
 var a *api.API
 var logger *log.Logger
+var default_skillID = uuid.Must(uuid.NewUUID()).String()
 
 type testDef struct {
 	name                   string
@@ -52,4 +57,43 @@ func TestHandlers_SubmitSkill(t *testing.T) {
 			assert.Regexp(t, test.expectedBody, test.out.Body)
 		})
 	}
+}
+
+func TestHandlers_GetSkill(t *testing.T) {
+	tests := []testDef{
+		{
+			name:           "Get Skill",
+			in:             generateRequest("GET", "/skill/"+default_skillID, "../../examples/empty.json"),
+			out:            httptest.NewRecorder(),
+			expectedStatus: http.StatusOK,
+			expectedBody:   "",
+		},
+	}
+	for _, test := range tests {
+		test := test
+		t.Run(test.name, func(t *testing.T) {
+			a.GetSkill(test.out, test.in)
+			assert.Equal(t, test.expectedStatus, test.out.Code)
+			assert.Regexp(t, test.expectedBody, test.out.Body)
+			//log.Printf((string)test.out.Body)
+		})
+	}
+}
+
+func init() {
+	logger = log.New(os.Stdout, "skillsmapper-api-test ", log.LstdFlags|log.Lshortfile)
+	dataStore, err := local.NewInMemoryDataStore(logger)
+	if err != nil {
+		logger.Fatalf("failed to create data store: %v", err)
+	}
+
+	a = api.NewAPI(logger, dataStore)
+
+	dataStore.PersistSkill(model.Skill{
+		SkillID: default_skillID,
+		Created: time.Time{},
+		Email:   "dan@example.com",
+		Tag:     "java",
+		Level:   "using",
+	})
 }
