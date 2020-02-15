@@ -1,16 +1,13 @@
-apiVersion: skaffold/v2alpha3
+apiVersion: skaffold/v2alpha2
 kind: Config
 metadata:
   name: skillsmapper
 build:
   artifacts:
-    - image: gcr.io/codetaming-skillsmapper/skillsmapperd
-      custom:
-        buildCommand: ./auto ko-build
-        dependencies:
-          paths:
-            - .
+  - image: gcr.io/codetaming-skillsmapper/skillsmapperd
+    custom:
+      buildCommand: ./build.sh
 deploy:
   kubectl:
     manifests:
-    - k8s/test.yaml
+    - k8s/skillsmapper.yaml

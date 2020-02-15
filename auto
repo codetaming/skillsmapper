@@ -12,22 +12,16 @@ goal_build() {
   go build ./cmd/skillsmapperd
 }
 
-goal_ko-build() {
-    if ! [ -x "$(command -v ko)" ]; then
-        GO111MODULE=on go get -mod=readonly github.com/google/ko/cmd/ko
-    fi
-
-    output=$(ko publish --local --preserve-import-paths --tags= ./cmd/skillsmapperd | tee)
-    ref=$(echo $output | tail -n1)
-
-    docker tag $ref $IMAGE
-    if $PUSH_IMAGE; then
-        docker push $IMAGE
-    fi
-}
-
 goal_containerize() {
   ko publish ./cmd/skillsmapperd
+}
+
+goal_skaffold-run() {
+  skaffold run --tail --default-repo github.com/codetaming/skillsmapper
+}
+
+goal_skaffold-dev() {
+  skaffold dev --port-forward --tail --default-repo github.com/codetaming/skillsmapper
 }
 
 goal_test-unit() {
@@ -56,6 +50,8 @@ goal_help() {
     test-unit                -- Run unit tests
     test-e2e                 -- Run newman tests
     deploy-cloudrun          -- Deploy to Cloud Run
+    skaffold-run             -- Run locally using Skaffold
+    skaffold-dev             -- Auto-redeploy locally using Skaffold
     "
   exit 1
 }

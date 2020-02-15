@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: skillsmapper
-spec:
-  containers:
-    - name: skillsmapper
-      image: gcr.io/codetaming-skillsmapper/skillsmapperd

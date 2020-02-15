@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: skillsmapper
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: skillsmapper
+  name: skillsmapper
+  namespace: skillsmapper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skillsmapper
+  template:
+    metadata:
+      labels:
+        app: skillsmapper
+    spec:
+      containers:
+        - image: gcr.io/codetaming-skillsmapper/skillsmapperd
+          name: skillsmapper
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: skillsmapper
+  name: skillsmapper
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: skillsmapper
+  type: NodePort
