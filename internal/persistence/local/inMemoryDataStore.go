@@ -15,8 +15,12 @@ func (ds InMemoryDataStore) GetAllSkills() ([]model.Skill, error) {
 	panic("implement me")
 }
 
-func (ds InMemoryDataStore) GetSkill(skillID string) (model.Skill, error) {
-	return ds.skills[skillID], nil
+func (ds InMemoryDataStore) GetSkill(id string) (model.Skill, error) {
+	if value, exist := ds.skills[id]; exist {
+		return value, nil
+	} else {
+		return value, &persistence.NotFoundError{Message: id}
+	}
 }
 
 func (ds InMemoryDataStore) PersistSkill(skill model.Skill) (err error) {

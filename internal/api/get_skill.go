@@ -2,18 +2,25 @@ package api
 
 import (
 	"encoding/json"
+	"github.com/codetaming/skillsmapper/internal/persistence"
 	"github.com/gorilla/mux"
 	"net/http"
 	"os"
 )
 
 func (api *API) GetSkill(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	skillID := vars["skillID"]
-	s, err := api.dataStore.GetSkill(skillID)
+	v := mux.Vars(r)
+	id := v["id"]
+	s, err := api.dataStore.GetSkill(id)
+
 	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
+		switch err.(type) {
+		case *persistence.NotFoundError:
+			http.Error(w, err.Error(), http.StatusNotFound)
+		default:
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusOK)

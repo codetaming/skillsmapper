@@ -11,8 +11,9 @@ import (
 	"time"
 )
 
+var logger = log.New(os.Stdout, "local_test ", log.LstdFlags|log.Lshortfile)
+
 func TestInMemoryStore(t *testing.T) {
-	logger := log.New(os.Stdout, "local_test ", log.LstdFlags|log.Lshortfile)
 	dataStore, err := local.NewInMemoryDataStore(logger)
 	assert.Nil(t, err)
 	skillID := uuid.Must(uuid.NewUUID()).String()
@@ -26,4 +27,10 @@ func TestInMemoryStore(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, skillID, retrievedSkill.SkillID)
 	assert.Equal(t, skill, retrievedSkill)
+}
+
+func TestNotInStoreErrors(t *testing.T) {
+	dataStore, _ := local.NewInMemoryDataStore(logger)
+	_, err := dataStore.GetSkill("invalid")
+	assert.NotNil(t, err)
 }

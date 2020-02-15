@@ -7,6 +7,12 @@ type DataStore interface {
 	SkillGetter
 }
 
+type NotFoundError struct {
+	Message string
+}
+
+func (e *NotFoundError) Error() string { return e.Message }
+
 type SkillPersister interface {
 	PersistSkill(skill model.Skill) (err error)
 }

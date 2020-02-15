@@ -1,10 +1,11 @@
 package api_test
 
 import (
+	"fmt"
 	"github.com/codetaming/skillsmapper/internal/api"
 	"github.com/codetaming/skillsmapper/internal/model"
 	"github.com/codetaming/skillsmapper/internal/persistence/local"
-	"github.com/google/uuid"
+	"github.com/gorilla/mux"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"net/http"
@@ -16,7 +17,8 @@ import (
 
 var a *api.API
 var logger *log.Logger
-var default_skillID = uuid.Must(uuid.NewUUID()).String()
+var defaultSkillID = "default_skill_id"
+var invalidSkillID = "invalid"
 
 type testDef struct {
 	name                   string
@@ -45,7 +47,7 @@ func TestHandlers_SubmitSkill(t *testing.T) {
 			out:                    httptest.NewRecorder(),
 			expectedLocationHeader: "/skill/.+",
 			expectedStatus:         http.StatusCreated,
-			expectedBody:           "{\"SkillID\":.+,\"Created\":.+,\"Email\":\"dan@example.com\",\"Tag\":\"java\",\"Level\":\"learning\"}",
+			expectedBody:           "{\"skill_id\":.+,\"created\":.+,\"email\":\"dan@example.com\",\"tag\":\"java\",\"level\":\"learning\"}",
 		},
 	}
 	for _, test := range tests {
@@ -63,9 +65,16 @@ func TestHandlers_GetSkill(t *testing.T) {
 	tests := []testDef{
 		{
 			name:           "Get Skill",
-			in:             generateRequest("GET", "/skill/"+default_skillID, "../../examples/empty.json"),
+			in:             generateRequest("GET", fmt.Sprintf("/skill/%s", defaultSkillID), "../../examples/empty.json"),
 			out:            httptest.NewRecorder(),
 			expectedStatus: http.StatusOK,
+			expectedBody:   "",
+		},
+		{
+			name:           "Get Invalid skill",
+			in:             generateRequest("GET", fmt.Sprintf("/skill/%s", invalidSkillID), "../../examples/empty.json"),
+			out:            httptest.NewRecorder(),
+			expectedStatus: http.StatusNotFound,
 			expectedBody:   "",
 		},
 	}
@@ -75,7 +84,6 @@ func TestHandlers_GetSkill(t *testing.T) {
 			a.GetSkill(test.out, test.in)
 			assert.Equal(t, test.expectedStatus, test.out.Code)
 			assert.Regexp(t, test.expectedBody, test.out.Body)
-			//log.Printf((string)test.out.Body)
 		})
 	}
 }
@@ -86,11 +94,11 @@ func init() {
 	if err != nil {
 		logger.Fatalf("failed to create data store: %v", err)
 	}
-
 	a = api.NewAPI(logger, dataStore)
+	a.SetupRoutes(mux.NewRouter())
 
 	dataStore.PersistSkill(model.Skill{
-		SkillID: default_skillID,
+		SkillID: defaultSkillID,
 		Created: time.Time{},
 		Email:   "dan@example.com",
 		Tag:     "java",
