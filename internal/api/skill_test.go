@@ -55,6 +55,7 @@ func TestSkills(t *testing.T) {
 	t.Run("SubmitSkill", apiTests.SubmitSkill)
 	t.Run("RoundTripSkill", apiTests.RoundTripSkill)
 	t.Run("GetSkill", apiTests.GetSkill)
+	t.Run("GetSkills", apiTests.GetSkills)
 }
 
 func generateRequest(method string, target string, bodyFile string) *http.Request {
@@ -97,6 +98,17 @@ func (a *APITests) RoundTripSkill(t *testing.T) {
 		location := postOut.Header()["Location"]
 		getOut := httptest.NewRecorder()
 		a.api.Router.ServeHTTP(getOut, generateRequest("GET", location[0], "../../examples/empty.json"))
+		assert.Equal(t, http.StatusOK, getOut.Code)
+		expectedBody := "{\"skill_id\":.+,\"created\":.+,\"email\":\"dan@example.com\",\"tag\":\"java\",\"level\":\"learning\"}"
+		assert.Regexp(t, expectedBody, getOut.Body)
+	})
+}
+
+func (a *APITests) GetSkills(t *testing.T) {
+	name := "get skills"
+	t.Run(name, func(t *testing.T) {
+		getOut := httptest.NewRecorder()
+		a.api.Router.ServeHTTP(getOut, generateRequest("GET", "/skill", "../../examples/empty.json"))
 		assert.Equal(t, http.StatusOK, getOut.Code)
 		expectedBody := "{\"skill_id\":.+,\"created\":.+,\"email\":\"dan@example.com\",\"tag\":\"java\",\"level\":\"learning\"}"
 		assert.Regexp(t, expectedBody, getOut.Body)

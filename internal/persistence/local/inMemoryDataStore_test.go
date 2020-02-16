@@ -24,9 +24,11 @@ func TestInMemoryStore(t *testing.T) {
 	}
 	dataStore.PersistSkill(skill)
 	retrievedSkill, err := dataStore.GetSkill(skillID)
+	retrievedAllSkills, err := dataStore.GetAllSkills()
 	assert.Nil(t, err)
 	assert.Equal(t, skillID, retrievedSkill.SkillID)
 	assert.Equal(t, skill, retrievedSkill)
+	assert.Equal(t, 1, len(retrievedAllSkills))
 }
 
 func TestNotInStoreErrors(t *testing.T) {

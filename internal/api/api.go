@@ -15,6 +15,7 @@ type API struct {
 func (api *API) setupRoutes() {
 	api.Router.HandleFunc("/skill", api.SubmitSkill).Methods("POST")
 	api.Router.HandleFunc("/skill/{id}", api.GetSkill).Methods("GET")
+	api.Router.HandleFunc("/skill", api.GetSkills).Methods("GET")
 }
 
 func NewAPI(logger *log.Logger, dataStore persistence.DataStore) *API {

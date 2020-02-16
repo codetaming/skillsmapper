@@ -18,6 +18,6 @@ type SkillPersister interface {
 }
 
 type SkillGetter interface {
-	GetAllSkills() ([]model.Skill, error)
+	GetAllSkills() (map[string]model.Skill, error)
 	GetSkill(skillID string) (model.Skill, error)
 }
