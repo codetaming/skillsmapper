@@ -30,6 +30,7 @@ metadata:
   labels:
     app: skillsmapper
   name: skillsmapper
+  namespace: skillsmapper
 spec:
   ports:
     - port: 8080

@@ -20,3 +20,11 @@ export KUBECONFIG="$(kind get kubeconfig --name="kind")"
 kubectx docker-desktop
 curl -L https://github.com/knative/serving/releases/download/v0.12.0/serving.yaml \
   | kubectl apply --filename -
+
+# Swagger
+brew tap go-swagger/go-swagger
+brew install go-swagger
+
+swagger serve swagger.yaml
+swagger generate model --spec=swagger.yaml
+swagger generate client [-f ./swagger.json] -A [application-name [--principal [principal-name]]

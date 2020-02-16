@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/codetaming/skillsmapper/internal/api"
 	"github.com/codetaming/skillsmapper/internal/persistence/local"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"os"
@@ -21,7 +20,7 @@ func init() {
 }
 
 func main() {
-	router := mux.NewRouter()
+
 	logger := log.New(os.Stdout, "skillsmapper ", log.LstdFlags|log.Lshortfile)
 
 	logger.Printf("starting skillsmapper")
@@ -33,10 +32,9 @@ func main() {
 	}
 
 	a := api.NewAPI(logger, dataStore)
-	a.SetupRoutes(router)
 
 	logger.Printf("server starting on port %s", serverPort)
-	err = http.ListenAndServe(":"+serverPort, router)
+	err = http.ListenAndServe(":"+serverPort, a.Router)
 	if err != nil {
 		logger.Fatalf("server failed to start: %v", err)
 	}
