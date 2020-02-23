@@ -1,0 +1,8 @@
+# github.com/davecgh/go-spew v1.1.1
+github.com/davecgh/go-spew/spew
+# github.com/laktek/Stack-on-Go v0.0.0-20140820001055-368e99621c8c
+github.com/laktek/Stack-on-Go/stackongo
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
+# github.com/stretchr/testify v1.2.2
+github.com/stretchr/testify/assert
