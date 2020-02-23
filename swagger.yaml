@@ -1,0 +1,69 @@
+swagger: "2.0"
+info:
+  description: "Skills Mapper API"
+  version: "0.1.0"
+  title: "Skills Mapper"
+  contact:
+    email: "info@skilsmapper.org"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:8080"
+basePath: "/"
+schemes:
+  - "http"
+paths:
+  /skill:
+    post:
+      tags:
+        - "skill"
+      summary: "Add a new skill"
+      description: ""
+      operationId: "addSkill"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Skill object"
+          required: true
+          schema:
+            $ref: "#/definitions/Skill"
+      responses:
+        405:
+          description: "Invalid input"
+definitions:
+  Skill:
+    type: "object"
+    required:
+      - "tag"
+      - "level"
+    properties:
+      skill_id:
+        type: "string"
+      email:
+        type: "string"
+        example: "me@example.com"
+      tags:
+        type: "string"
+        example: "java"
+      level:
+        type: "string"
+        description: "current level"
+        enum:
+          - "interested"
+          - "learning"
+          - "using"
+          - "used"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
