@@ -3,6 +3,7 @@ module github.com/codetaming/skillsmapper
 go 1.13
 
 require (
+	code.cloudfoundry.org/eirini v0.0.0-20200216000550-4da3d521aa9c // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
 	github.com/go-openapi/analysis v0.19.7 // indirect
 	github.com/go-openapi/errors v0.19.3
@@ -16,6 +17,4 @@ require (
 	github.com/laktek/Stack-on-Go v0.0.0-20140820001055-368e99621c8c
 	github.com/stretchr/testify v1.4.0
 	go.mongodb.org/mongo-driver v1.3.0 // indirect
-	golang.org/x/net v0.0.0-20200202094626-16171245cfb2 // indirect
-	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
