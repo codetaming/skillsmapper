@@ -21,6 +21,11 @@
 [11]: https://quay.io/repository/codetaming/skillsmapper/status "Docker Repository on Quay"
 [12]: https://quay.io/repository/codetaming/skillsmapper
 
+Learning project of a Go implementation of Skills Mapper with a Flutter client.
 
-Learning project of a Go implementation of Skills Mapper.
+## Server
+
+
+## Client
+
 
