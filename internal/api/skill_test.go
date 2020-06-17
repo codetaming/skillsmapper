@@ -23,7 +23,7 @@ type testDef struct {
 	expectedBody           string
 }
 
-type APITests struct {
+type APISkillsTests struct {
 	api            *api.API
 	defaultSkillID string
 	invalidSkillID string
@@ -38,24 +38,24 @@ func TestSkills(t *testing.T) {
 	}
 	a := api.NewAPI(log, dataStore)
 
-	apiTests := APITests{
+	apiSkillsTests := APISkillsTests{
 		api:            a,
 		defaultSkillID: "default_skill_id",
 		invalidSkillID: "invalid_skill_id",
 	}
 
 	dataStore.PersistSkill(model.Skill{
-		SkillID: apiTests.defaultSkillID,
+		SkillID: apiSkillsTests.defaultSkillID,
 		Created: time.Time{},
 		Email:   "dan@example.com",
 		Tag:     "java",
 		Level:   "using",
 	})
 
-	t.Run("SubmitSkill", apiTests.SubmitSkill)
-	t.Run("RoundTripSkill", apiTests.RoundTripSkill)
-	t.Run("GetSkill", apiTests.GetSkill)
-	t.Run("GetSkills", apiTests.GetSkills)
+	t.Run("SubmitSkill", apiSkillsTests.SubmitSkill)
+	t.Run("RoundTripSkill", apiSkillsTests.RoundTripSkill)
+	t.Run("GetSkill", apiSkillsTests.GetSkill)
+	t.Run("GetSkills", apiSkillsTests.GetSkills)
 }
 
 func generateRequest(method string, target string, bodyFile string) *http.Request {
@@ -68,7 +68,7 @@ func generateRequest(method string, target string, bodyFile string) *http.Reques
 	return request
 }
 
-func (a *APITests) SubmitSkill(t *testing.T) {
+func (a *APISkillsTests) SubmitSkill(t *testing.T) {
 	tests := []testDef{
 		{
 			name:                   "submit skill",
@@ -90,7 +90,7 @@ func (a *APITests) SubmitSkill(t *testing.T) {
 	}
 }
 
-func (a *APITests) RoundTripSkill(t *testing.T) {
+func (a *APISkillsTests) RoundTripSkill(t *testing.T) {
 	name := "round trip skill"
 	t.Run(name, func(t *testing.T) {
 		postOut := httptest.NewRecorder()
@@ -104,7 +104,7 @@ func (a *APITests) RoundTripSkill(t *testing.T) {
 	})
 }
 
-func (a *APITests) GetSkills(t *testing.T) {
+func (a *APISkillsTests) GetSkills(t *testing.T) {
 	name := "get skills"
 	t.Run(name, func(t *testing.T) {
 		getOut := httptest.NewRecorder()
@@ -115,7 +115,7 @@ func (a *APITests) GetSkills(t *testing.T) {
 	})
 }
 
-func (a *APITests) GetSkill(t *testing.T) {
+func (a *APISkillsTests) GetSkill(t *testing.T) {
 	tests := []testDef{
 		{
 			name:           "get default skill",

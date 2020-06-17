@@ -4,10 +4,11 @@ go 1.13
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
+	github.com/docker/cli v0.0.0-20200303162255-7d407207c304
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-openapi/analysis v0.19.7 // indirect
 	github.com/go-openapi/errors v0.19.3
-	github.com/go-openapi/runtime v0.19.11
+	github.com/go-openapi/runtime v0.19.11 // indirect
 	github.com/go-openapi/spec v0.19.6 // indirect
 	github.com/go-openapi/strfmt v0.19.4
 	github.com/go-openapi/swag v0.19.7

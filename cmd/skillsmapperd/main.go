@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/codetaming/skillsmapper/internal/api"
 	"github.com/codetaming/skillsmapper/internal/persistence/local"
+	"github.com/docker/cli/cli/version"
 	"log"
 	"net/http"
 	"os"
@@ -23,7 +24,7 @@ func main() {
 
 	logger := log.New(os.Stdout, "skillsmapper ", log.LstdFlags|log.Lshortfile)
 
-	logger.Printf("starting skillsmapper")
+	logger.Printf("starting skillsmapper version %s ", version.Version)
 
 	logger.Printf("configuring data store")
 	dataStore, err := local.NewInMemoryDataStore(logger)
