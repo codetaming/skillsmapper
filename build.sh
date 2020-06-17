@@ -12,7 +12,7 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" ; pwd -P)
 source "${SCRIPT_DIR}/build.helpers"
 
 goal_build-cli() {
-  ./scripts/build/binary
+  scripts/binary.sh
 }
 
 goal_build() {

@@ -11,7 +11,7 @@ export PROJECT_ID=cloudtaming-skillsmapper
 gcloud components update
 gcloud auth configure-docker
 
-# Install kind and create a cluster
+# Install kind and create scripts cluster
 brew install kind
 kind create cluster
 export KUBECONFIG="$(kind get kubeconfig --name="kind")"

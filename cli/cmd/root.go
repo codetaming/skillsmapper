@@ -8,7 +8,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "cli",
-	Short: "cli is a CLI for Skills Mapper",
+	Short: "cli is scripts CLI for Skills Mapper",
 	Long:  ``,
 }
 

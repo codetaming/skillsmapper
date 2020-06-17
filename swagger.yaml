@@ -17,7 +17,7 @@ paths:
     post:
       tags:
         - "skill"
-      summary: "Add a new skill"
+      summary: "Add scripts new skill"
       description: ""
       operationId: "addSkill"
       consumes:
