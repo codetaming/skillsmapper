@@ -9,3 +9,7 @@ type Skill struct {
 	Tag     string    `json:"tag"`
 	Level   string    `json:"level"`
 }
+
+type Version struct {
+	Version string `json:"version"`
+}

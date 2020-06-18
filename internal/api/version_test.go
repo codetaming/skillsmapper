@@ -29,11 +29,11 @@ func TestVersion(t *testing.T) {
 func (a *APIVersionTests) GetVersion(t *testing.T) {
 	tests := []testDef{
 		{
-			name:           "get default skill",
+			name:           "get version",
 			in:             generateRequest("GET", fmt.Sprintf("/version"), "../../examples/empty.json"),
 			out:            httptest.NewRecorder(),
 			expectedStatus: http.StatusOK,
-			expectedBody:   "",
+			expectedBody:   "{\"version\":.+\"}",
 		},
 	}
 	for _, test := range tests {

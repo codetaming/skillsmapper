@@ -9,14 +9,14 @@ set -o pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" ; pwd -P)
 
-source "${SCRIPT_DIR}/build.helpers"
+source "scripts/build.helpers"
 
 goal_build-cli() {
-  scripts/binary.sh
+  scripts/cli-binary.sh
 }
 
-goal_build() {
-  go build ./cmd/skillsmapperd
+goal_build-server() {
+  scripts/server-binary.sh
 }
 
 goal_containerize() {

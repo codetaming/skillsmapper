@@ -1,4 +1,4 @@
-package main
+package version
 
 // Default build-time variable.
 // These values are overridden via ldflags

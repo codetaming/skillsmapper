@@ -6,6 +6,10 @@ import (
 	"os"
 )
 
+var (
+	ServerURI = os.Getenv("SERVER_URI")
+)
+
 var rootCmd = &cobra.Command{
 	Use:   "cli",
 	Short: "cli is scripts CLI for Skills Mapper",
