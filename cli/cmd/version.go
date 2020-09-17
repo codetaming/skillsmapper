@@ -18,7 +18,7 @@ func init() {
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version number of cli",
+	Short: "Print the version number of cli and server",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("CLI version:\t", version.Version)

@@ -7,8 +7,15 @@ import (
 )
 
 var (
-	ServerURI = os.Getenv("SERVER_URI")
+	ServerURI = getEnv("SERVER_URI", "http://localhost:8080")
 )
+
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "cli",
