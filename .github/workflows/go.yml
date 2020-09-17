@@ -30,8 +30,8 @@ jobs:
             dep ensure
         fi
 
-    - name: Build
-      run: go build -v .
+    - name: Build server
+      run: ./build.sh build-server
 
-    - name: Test
-      run: go test -v .
+    - name: Unit test
+      run: ./build.sh test-unit

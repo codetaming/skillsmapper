@@ -51,7 +51,7 @@ goal_deploy-cloudrun() {
 goal_help() {
   echo "usage: $0 <goal>
     goal:
-    build                    -- Build the deployable server artifacts
+    build-server             -- Build the deployable server artifacts
     build-cli                -- Build the deployable cli artifacts
     containerize             -- Build the docker container for the app
     test-unit                -- Run unit tests
