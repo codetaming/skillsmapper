@@ -7,6 +7,7 @@
 [![Docker Repository on Quay][11]][12]
 [![Maintainability](https://api.codeclimate.com/v1/badges/a9dc15e06a1b582ee7af/maintainability)](https://codeclimate.com/github/codetaming/skillsmapper/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a9dc15e06a1b582ee7af/test_coverage)](https://codeclimate.com/github/codetaming/skillsmapper/test_coverage)
+[![GitHub Super-Linter](https://github.com/codetaming/skillsmapper/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 [1]: https://godoc.org/github.com/codetaming/skillsmapper?status.svg
 [2]: https://godoc.org/github.com/codetaming/skillsmapper
