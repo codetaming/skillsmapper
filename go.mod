@@ -12,7 +12,7 @@ require (
 	github.com/go-openapi/strfmt v0.19.4
 	github.com/go-openapi/swag v0.19.7
 	github.com/go-openapi/validate v0.19.6
-	github.com/google/ko v0.5.1 // indirect
+	github.com/google/ko v0.5.2 // indirect
 	github.com/google/uuid v1.1.1
 	github.com/gorilla/mux v1.7.4
 	github.com/laktek/Stack-on-Go v0.0.0-20140820001055-368e99621c8c

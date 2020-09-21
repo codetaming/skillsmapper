@@ -1,13 +1,8 @@
 #!/bin/bash
 
-version=0.1.0
-time=$(date)
-
 set -e
 set -o nounset
 set -o pipefail
-
-SCRIPT_DIR=$(cd "$(dirname "$0")" ; pwd -P)
 
 source "scripts/build.helpers"
 
@@ -45,7 +40,7 @@ goal_test-e2e() {
 }
 
 goal_deploy-cloudrun() {
-  gcloud run deploy --image gcr.io/${PROJECT_ID}/ko/gcr.io/codetaming-skillsmapper/ko/skillsmapperd-c89e9d07d866ec9370a3f2eb76542a1b@sha256:8dc64722fa4c1e281cd76b377e3e6de502b664c5b1b31e9bcf0cc192f006cd76 --platform managed
+  gcloud run deploy --image gcr.io/"${PROJECT_ID}"/ko/gcr.io/codetaming-skillsmapper/ko/skillsmapperd-c89e9d07d866ec9370a3f2eb76542a1b@sha256:8dc64722fa4c1e281cd76b377e3e6de502b664c5b1b31e9bcf0cc192f006cd76 --platform managed
 }
 
 goal_help() {

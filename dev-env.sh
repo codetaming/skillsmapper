@@ -14,7 +14,7 @@ gcloud auth configure-docker
 # Install kind and create scripts cluster
 brew install kind
 kind create cluster
-export KUBECONFIG="$(kind get kubeconfig --name="kind")"
+# export KUBECONFIG="$(kind get kubeconfig --name="kind")"
 
 # Install Knative on Docker Desktop
 kubectx docker-desktop
@@ -27,4 +27,5 @@ brew install go-swagger
 
 swagger serve swagger.yaml
 swagger generate model --spec=swagger.yaml
+# shellcheck disable=SC2102
 swagger generate client [-f ./swagger.json] -A [application-name [--principal [principal-name]]
