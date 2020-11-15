@@ -9,10 +9,6 @@ jobs:
   setup-build-deploy:
     name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
-    env:
-      PROJECT_ID: ${{ secrets.RUN_PROJECT }}
-      RUN_REGION: ${{ secrets.RUN_REGION }}
-      SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
 
     steps:
       - name: Checkout
@@ -23,19 +19,19 @@ jobs:
         with:
           version: '290.0.1'
           service_account_key: ${{ secrets.RUN_SA_KEY }}
-          project_id: $PROJECT_ID
+          project_id: ${{ secrets.RUN_PROJECT }}
 
       # Build and push image to Google Container Registry
       - name: Build
         run: |-
-          gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
+          gcloud builds submit -t gcr.io/${{ secrets.RUN_PROJECT }}/${{ secrets.SERVICE_NAME }}:$GITHUB_SHA
 
       # Deploy image to Cloud Run
       - name: Deploy
         run: |-
-          gcloud run deploy $SERVICE_NAME \
+          gcloud run deploy ${{ secrets.SERVICE_NAME }} \
             --quiet \
-            --region $RUN_REGION \
-            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
+            --region ${{ secrets.RUN_REGION }} \
+            --image "gcr.io/${{ secrets.RUN_PROJECT }}/${{ secrets.SERVICE_NAME }}:$GITHUB_SHA" \
             --platform "managed" \
             --allow-unauthenticated
