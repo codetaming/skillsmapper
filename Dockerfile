@@ -1,4 +1,4 @@
-FROM golang:1.13-stretch AS BUILD
+FROM golang:1.15-stretch AS BUILD
 RUN mkdir /app
 ADD . /app/
 WORKDIR /app
