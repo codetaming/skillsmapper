@@ -2,10 +2,11 @@ name: Go
 
 on:
   push:
-    branches: [ ]
+    branches:
+      - '!master'
   pull_request:
     branches:
-    - master
+      - 'master'
 
 jobs:
   lint:
