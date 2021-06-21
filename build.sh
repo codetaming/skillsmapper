@@ -53,7 +53,7 @@ goal_help() {
     test-e2e                 -- Run newman tests
     deploy-cloudrun          -- Deploy to Cloud Run
     skaffold-run             -- Run locally using Skaffold
-    skaffold-dev             -- Auto-redeploy locally using Skaffold\
+    skaffold-dev             -- Auto-redeploy locally using Skaffold
   "
   exit 1
 }
